@@ -12,7 +12,6 @@ const rgbeLoader = new RGBELoader();
 const textureLoader = new THREE.TextureLoader();
 
 const particlesTexture = textureLoader.load("/textures/particles/4.png");
-const sphereTexture = textureLoader.load("/textures/particles/6.png");
 
 // Models
 let mixer = null;
@@ -45,7 +44,7 @@ const sizes = {
 };
 
 // Lights
-const ambientLight = new THREE.AmbientLight("#white", 1);
+const ambientLight = new THREE.AmbientLight("#white", 0.5);
 ambientLight.position.set(1, 10, 1);
 scene.add(ambientLight);
 
@@ -54,7 +53,7 @@ directionalLight1.position.set(10, 5.083, 0);
 
 scene.add(directionalLight1);
 
-const directionalLight2 = new THREE.DirectionalLight("#4400ff", 5);
+const directionalLight2 = new THREE.DirectionalLight("#4400ff", 10);
 directionalLight2.position.set(-10, 9.754, 0);
 scene.add(directionalLight2);
 
@@ -91,7 +90,6 @@ controls.enableDamping = true;
 const sphere = new THREE.Mesh(
   new THREE.SphereGeometry(1, 15, 15),
   new THREE.MeshStandardMaterial({
-    alphaMap: sphereTexture,
     flatShading: true,
     metalness: 0.6,
   })
@@ -102,7 +100,7 @@ scene.add(sphere);
 // Plane
 const plane = new THREE.Mesh(
   new THREE.PlaneGeometry(20, 20),
-  new THREE.MeshStandardMaterial({ color: "#bd3a4c" })
+  new THREE.MeshStandardMaterial({ color: "#3d44ff" })
 );
 
 plane.rotation.x = -Math.PI * 0.5;
