@@ -12,6 +12,7 @@ const rgbeLoader = new RGBELoader();
 const textureLoader = new THREE.TextureLoader();
 
 const particlesTexture = textureLoader.load("/textures/particles/4.png");
+const sphereTexture = textureLoader.load("/textures/particles/6.png");
 
 // Models
 let mixer = null;
@@ -44,16 +45,16 @@ const sizes = {
 };
 
 // Lights
-const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+const ambientLight = new THREE.AmbientLight("#white", 1);
 ambientLight.position.set(1, 10, 1);
 scene.add(ambientLight);
 
-const directionalLight1 = new THREE.DirectionalLight("blue", 10);
+const directionalLight1 = new THREE.DirectionalLight("#9572f7", 10);
 directionalLight1.position.set(10, 5.083, 0);
 
 scene.add(directionalLight1);
 
-const directionalLight2 = new THREE.DirectionalLight("purple", 3);
+const directionalLight2 = new THREE.DirectionalLight("#4400ff", 5);
 directionalLight2.position.set(-10, 9.754, 0);
 scene.add(directionalLight2);
 
@@ -88,11 +89,11 @@ controls.enableDamping = true;
 
 // Sphere
 const sphere = new THREE.Mesh(
-  new THREE.SphereGeometry(1, 32, 32),
+  new THREE.SphereGeometry(1, 15, 15),
   new THREE.MeshStandardMaterial({
-    metalness: 1,
+    alphaMap: sphereTexture,
     flatShading: true,
-    color: "white",
+    metalness: 0.6,
   })
 );
 sphere.position.y = 9;
@@ -101,7 +102,7 @@ scene.add(sphere);
 // Plane
 const plane = new THREE.Mesh(
   new THREE.PlaneGeometry(20, 20),
-  new THREE.MeshStandardMaterial()
+  new THREE.MeshStandardMaterial({ color: "#bd3a4c" })
 );
 
 plane.rotation.x = -Math.PI * 0.5;
@@ -110,7 +111,7 @@ scene.add(plane);
 
 // Galaxy
 const particlesGeometry = new THREE.BufferGeometry();
-const count = 3000;
+const count = 2000;
 const positions = new Float32Array(count * 3);
 
 for (let i = 0; i <= count * 3; i++) {
@@ -126,7 +127,7 @@ const particlesMaterial = new THREE.PointsMaterial({
   size: 0.1,
   sizeAttenuation: true,
 });
-particlesMaterial.color = new THREE.Color("yellow");
+
 particlesMaterial.transparent = true;
 particlesMaterial.alphaMap = particlesTexture;
 particlesMaterial.alphaTest = 0.01;
